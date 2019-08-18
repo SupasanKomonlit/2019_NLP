@@ -30,11 +30,15 @@ class WordCount:
             self.error_message = "  <INIT FUNCTION> Can't open file name \"" + file_name + "\""
             raise ValueError
 
-    def get_word_line( self ):
-        data_line = self.file.readline()
+    def start_count( self ):
+        
+        for line in self.file : # This will read line for you
+            # word_list is array of word
+            word_list = self.get_word_line( line )
+            
 
-        return re.sub( '[' + string.punctuation+']',' ', data_line ).split()
-
+    def get_word_line( self , line_data ):
+        return re.sub( '[' + string.punctuation+']',' ', line_data ).split()
 
     def close_file( self ):
         self.file.close()
@@ -57,4 +61,6 @@ if __name__=="__main__":
     else:
         word_count = WordCount( list_argv[1] )
 
-        
+        word_count.start_count()
+
+        word_count.close_file()
