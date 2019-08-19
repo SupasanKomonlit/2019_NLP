@@ -17,6 +17,7 @@
 from __future__ import print_function
 
 import sys
+import numpy as np
 import re   # for regular expressions
 import string
 
@@ -54,8 +55,13 @@ class WordCount:
     def show_result( self ):
         print( "Result is : " )
 
-        for run in range( len( self.word_list ) ):
-            print( "  {:20s}  : {:d}".format( self.word_list[run] , self.count_list[ run ] ) ) 
+#        for run in range( len( self.word_list ) ):
+#            print( "  {:20s}  : {:d}".format( self.word_list[run] , self.count_list[ run ] ) )
+
+        array_word = np.array( [self.word_list] )
+        array_count = np.array( [self.count_list] )
+        array_result = np.concatenate( ( array_word.T , array_count.T) , axis=1 )
+        print( repr( array_result ) ) 
 
     def get_word_line( self , line_data ):
         return re.sub( '[' + string.punctuation+']',' ', line_data ).split()
